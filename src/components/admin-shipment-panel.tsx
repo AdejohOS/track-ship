@@ -84,8 +84,8 @@ export function AdminShipmentPanel({
                   setStatus(
                     value as
                       | "pending"
-                      | "in-transit"
-                      | "out-for-delivery"
+                      | "in_transit"
+                      | "out_for_delivery"
                       | "delivered",
                   )
                 }
@@ -95,8 +95,8 @@ export function AdminShipmentPanel({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="pending">Pending</SelectItem>
-                  <SelectItem value="in-transit">In Transit</SelectItem>
-                  <SelectItem value="out-for-delivery">
+                  <SelectItem value="in_transit">In Transit</SelectItem>
+                  <SelectItem value="out_for_delivery">
                     Out for Delivery
                   </SelectItem>
                   <SelectItem value="delivered">Delivered</SelectItem>
@@ -126,9 +126,9 @@ export function AdminShipmentPanel({
                 Current Status
               </p>
               <Badge className="text-sm">
-                {status === "in-transit"
+                {status === "in_transit"
                   ? "In Transit"
-                  : status === "out-for-delivery"
+                  : status === "out_for_delivery"
                     ? "Out for Delivery"
                     : status.charAt(0).toUpperCase() + status.slice(1)}
               </Badge>
