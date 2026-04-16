@@ -10,5 +10,7 @@ export function formatDate(date: Date | string) {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
-  }).format(new Date(date));
+  })
+    .format(new Date(date))
+    .replace(/\//g, "-");
 }

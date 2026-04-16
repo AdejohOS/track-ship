@@ -14,9 +14,9 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-secondary-foreground rounded-lg flex items-center justify-center">
-                <span className="text-secondary font-bold text-sm">ST</span>
+                <span className="text-secondary font-bold text-sm">TS</span>
               </div>
-              <span className="font-bold text-lg">ShipTrack</span>
+              <span className="font-bold text-lg">Track</span>
             </div>
             <p className="text-sm opacity-80">
               Your trusted partner for professional logistics and shipping
@@ -121,7 +121,7 @@ export function Footer() {
         <Separator className="bg-secondary-foreground/20 mb-6" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm opacity-80">
-          <p>&copy; {currentYear} ShipTrack. All rights reserved.</p>
+          <p>&copy; {currentYear} Track-Ship. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="#" className="hover:opacity-100">
               Twitter

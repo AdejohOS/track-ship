@@ -54,7 +54,7 @@ export function Hero() {
               <form action="" onSubmit={handleTrack} id="tracking-form">
                 <Input
                   type="text"
-                  placeholder="Enter tracking ID (e.g., SHP-2024-001)"
+                  placeholder="Enter tracking ID (e.g., TS-2024-001)"
                   value={trackingId}
                   onChange={(e) => setTrackingId(e.target.value)}
                   className="w-full h-12 bg-white/95 border-0 text-foreground placeholder:text-muted-foreground rounded-lg shadow-lg focus:bg-white"

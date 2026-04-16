@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 import { Card } from "@/components/ui/card";
@@ -24,72 +22,28 @@ import {
 } from "lucide-react";
 import { AdminHeader } from "./_components/admin-header";
 import { StatsCard } from "./_components/stats-card";
+import { prisma } from "@/lib/prisma";
+import { formatDate } from "@/lib/utils";
 
-export default function Dashboard() {
-  const recentShipments = [
-    {
-      id: "SHP-2024-001",
-      customer: "Acme Industries",
-      status: "in-transit",
-      origin: "Los Angeles, CA",
-      destination: "New York, NY",
-      date: "2024-03-24",
-      weight: "45 kg",
-      carrier: "ShipTrack Express",
+export default async function Dashboard() {
+  const recentShipments = await prisma.shipment.findMany({
+    orderBy: {
+      createdAt: "desc",
     },
-    {
-      id: "SHP-2024-002",
-      customer: "Tech Solutions Inc.",
-      status: "delivered",
-      origin: "Chicago, IL",
-      destination: "Boston, MA",
-      date: "2024-03-23",
-      weight: "28 kg",
-      carrier: "ShipTrack Standard",
-    },
-    {
-      id: "SHP-2024-003",
-      customer: "Global Logistics",
-      status: "pending",
-      origin: "Seattle, WA",
-      destination: "Miami, FL",
-      date: "2024-03-22",
-      weight: "62 kg",
-      carrier: "ShipTrack Express",
-    },
-    {
-      id: "SHP-2024-004",
-      customer: "Enterprise Solutions",
-      status: "out-for-delivery",
-      origin: "Denver, CO",
-      destination: "San Francisco, CA",
-      date: "2024-03-21",
-      weight: "35 kg",
-      carrier: "ShipTrack Standard",
-    },
-    {
-      id: "SHP-2024-005",
-      customer: "StartUp Ventures",
-      status: "in-transit",
-      origin: "Austin, TX",
-      destination: "Portland, OR",
-      date: "2024-03-20",
-      weight: "22 kg",
-      carrier: "ShipTrack Economy",
-    },
-  ];
+    take: 5,
+  });
 
   const statusColors = {
     pending: "bg-yellow-100 text-yellow-800",
-    "in-transit": "bg-blue-100 text-blue-800",
-    "out-for-delivery": "bg-purple-100 text-purple-800",
+    in_transit: "bg-blue-100 text-blue-800",
+    out_for_delivery: "bg-purple-100 text-purple-800",
     delivered: "bg-green-100 text-green-800",
   };
 
   const statusLabels = {
     pending: "Pending",
-    "in-transit": "In Transit",
-    "out-for-delivery": "Out for Delivery",
+    in_transit: "In Transit",
+    out_for_delivery: "Out for Delivery",
     delivered: "Delivered",
   };
 
@@ -98,10 +52,6 @@ export default function Dashboard() {
       <AdminHeader
         title="Dashboard"
         description="Monitor shipments, analytics, and logistics operations"
-        action={{
-          label: "Create Shipment",
-          onClick: () => (window.location.href = "/admin/create-shipment"),
-        }}
       />
 
       <div className="flex-1 overflow-y-auto p-6 space-y-8">
@@ -248,15 +198,17 @@ export default function Dashboard() {
                 {recentShipments.map((shipment) => (
                   <TableRow key={shipment.id}>
                     <TableCell className="font-mono font-semibold text-primary">
-                      {shipment.id}
+                      {shipment.trackingNumber}
                     </TableCell>
                     <TableCell className="font-medium">
-                      {shipment.customer}
+                      {shipment.senderName}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {shipment.origin} → {shipment.destination}
                     </TableCell>
-                    <TableCell className="text-sm">{shipment.weight}</TableCell>
+                    <TableCell className="text-sm">
+                      {shipment.weight} kg
+                    </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
                       {shipment.carrier}
                     </TableCell>
@@ -276,11 +228,13 @@ export default function Dashboard() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
-                      {shipment.date}
+                      {formatDate(shipment.createdAt)}
                     </TableCell>
                     <TableCell>
                       <Button variant="ghost" size="sm">
-                        View
+                        <Link href={`/admin/shipments/${shipment.id}`}>
+                          View
+                        </Link>
                       </Button>
                     </TableCell>
                   </TableRow>
