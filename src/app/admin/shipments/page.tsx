@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import Shipments from "./_components/shipments";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function ShipmentsPage() {
   const shipments = await prisma.shipment.findMany({
     orderBy: {
