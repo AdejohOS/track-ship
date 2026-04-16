@@ -14,3 +14,10 @@ export function formatDate(date: Date | string) {
     .format(new Date(date))
     .replace(/\//g, "-");
 }
+
+export function formatUSD(amount: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+}

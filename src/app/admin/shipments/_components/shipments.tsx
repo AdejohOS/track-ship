@@ -26,7 +26,7 @@ import { useState } from "react";
 import { AdminHeader } from "../../_components/admin-header";
 
 import { useRouter } from "next/navigation";
-import { formatDate } from "@/lib/utils";
+import { formatDate, formatUSD } from "@/lib/utils";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { deleteShipmentAction } from "@/actions/actions";
 import { toast } from "sonner";
@@ -288,7 +288,7 @@ export default function Shipments({ allShipments }: ShipmentsProps) {
                         </Badge>
                       </TableCell>
                       <TableCell className="font-medium">
-                        ${shipment.cost.toFixed(2)}
+                        {formatUSD(shipment.cost)}
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {formatDate(shipment.createdAt)}
