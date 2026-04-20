@@ -1,10 +1,10 @@
-import { AdminHeader } from "@/app/admin/_components/admin-header";
 import { Card } from "@/components/ui/card";
 import { AdminUpdateShipmentForm } from "./_components/admin-update-shipment-form";
 import { prisma } from "@/lib/prisma";
 import { ArrowLeftIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { AdminHeader } from "../../../_components/admin-header";
 
 export default async function EditShipmentPage({
   params,
