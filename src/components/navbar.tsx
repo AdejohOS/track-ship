@@ -21,25 +21,25 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-8">
             <Link
-              href="#home"
+              href="/#home"
               className="text-foreground hover:text-primary transition-colors"
             >
               Home
             </Link>
             <Link
-              href="#services"
+              href="/#services"
               className="text-foreground hover:text-primary transition-colors"
             >
               Services
             </Link>
             <Link
-              href="#about"
+              href="/#about"
               className="text-foreground hover:text-primary transition-colors"
             >
               About
             </Link>
             <Link
-              href="#contact"
+              href="/#contact"
               className="text-foreground hover:text-primary transition-colors"
             >
               Contact
