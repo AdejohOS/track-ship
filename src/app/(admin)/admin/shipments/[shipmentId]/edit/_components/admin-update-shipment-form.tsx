@@ -68,10 +68,9 @@ export const AdminUpdateShipmentForm = ({
     serviceType: initialShipment.serviceType,
     cost: initialShipment.cost,
     status: initialShipment.status,
-    deliveryDate:
-      typeof initialShipment.deliveryDate === "string"
-        ? initialShipment.deliveryDate
-        : new Date(initialShipment.deliveryDate).toISOString().split("T")[0],
+    deliveryDate: initialShipment.deliveryDate
+      ? new Date(initialShipment.deliveryDate).toISOString().split("T")[0]
+      : "",
     description: initialShipment.description ?? "",
   };
 

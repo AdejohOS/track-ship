@@ -18,6 +18,8 @@ import { ShipmentDetails } from "./_components/shipment-details";
 import { ProofOfDelivery } from "./_components/proof-of-delivery";
 import { Timeline } from "@/components/timeline";
 import { CarbonImpact } from "./_components/carbon-impact";
+import { TrackingActions } from "./_components/tracking_actions";
+import { getDistance } from "@/lib/utils";
 
 const TrackingDetailsPage = async ({
   params,
@@ -76,24 +78,12 @@ const TrackingDetailsPage = async ({
             deliveryDate={shipment.deliveryDate}
             status={shipment.status}
           />
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button variant="outline" className="gap-2">
-              <ShareIcon className="w-4 h-4" />
-              Share Tracking
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <PrinterIcon className="w-4 h-4" />
-              Print Details
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <BellIcon className="w-4 h-4" />
-              Set Notifications
-            </Button>
-            <Button variant="outline" className="gap-2">
-              <MapIcon className="w-4 h-4" />
-              View Map
-            </Button>
-          </div>
+          <TrackingActions
+            trackingNumber={shipment.trackingNumber}
+            destination={shipment.destination}
+            currentLocation={shipment.origin}
+            status={shipment.status}
+          />
 
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-8">
@@ -122,14 +112,12 @@ const TrackingDetailsPage = async ({
               )}
             </div>
             <div className="space-y-6">
-              {/* Carbon Impact */}
               <CarbonImpact
                 weight={shipment.weight}
-                distance={distanceKm}
+                distance={getDistance(shipment.origin, shipment.destination)}
                 carrier={shipment.carrier}
               />
 
-              {/* Quick Stats */}
               <Card className="p-6">
                 <h3 className="font-bold text-lg mb-4 text-foreground">
                   Quick Facts

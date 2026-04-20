@@ -24,6 +24,7 @@ import { AdminHeader } from "./_components/admin-header";
 import { StatsCard } from "./_components/stats-card";
 import { prisma } from "@/lib/prisma";
 import { formatDate } from "@/lib/utils";
+import { getShipmentStats } from "@/hooks/hook";
 
 export default async function Dashboard() {
   const recentShipments = await prisma.shipment.findMany({
@@ -32,6 +33,8 @@ export default async function Dashboard() {
     },
     take: 5,
   });
+
+  const stats = await getShipmentStats();
 
   const statusColors = {
     pending: "bg-yellow-100 text-yellow-800",
@@ -59,25 +62,25 @@ export default async function Dashboard() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatsCard
             label="Total Shipments"
-            value="2,847"
+            value={stats.total.toLocaleString()}
             change={12}
             icon={<PackageIcon className="w-8 h-8" />}
           />
           <StatsCard
             label="In Transit"
-            value="342"
+            value={stats.inTransit.toLocaleString()}
             change={5}
             icon={<TruckIcon className="w-8 h-8" />}
           />
           <StatsCard
             label="Delivered"
-            value="2,156"
+            value={stats.delivered.toLocaleString()}
             change={18}
             icon={<CheckCircleIcon className="w-8 h-8" />}
           />
           <StatsCard
             label="Pending"
-            value="349"
+            value={stats.pending.toLocaleString()}
             change={-3}
             icon={<ClockIcon className="w-8 h-8" />}
           />

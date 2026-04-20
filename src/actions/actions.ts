@@ -41,6 +41,15 @@ export async function createShipmentAction(values: CreateShipmentValues) {
 
     const trackingNumber = `TS-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
 
+    const parsedDeliveryDate = deliveryDate ? new Date(deliveryDate) : null;
+
+    if (!parsedDeliveryDate || isNaN(parsedDeliveryDate.getTime())) {
+      return {
+        success: false,
+        message: "Please provide a valid delivery date",
+      };
+    }
+
     const shipment = await prisma.shipment.create({
       data: {
         trackingNumber,
@@ -58,7 +67,7 @@ export async function createShipmentAction(values: CreateShipmentValues) {
         carrier,
         description,
         status,
-        deliveryDate: new Date(deliveryDate),
+        deliveryDate: parsedDeliveryDate,
 
         history: {
           create: [
@@ -123,6 +132,15 @@ export async function updateShipmentAction(
       deliveryDate,
     } = validatedData.data;
 
+    const parsedDeliveryDate = deliveryDate ? new Date(deliveryDate) : null;
+
+    if (!parsedDeliveryDate || isNaN(parsedDeliveryDate.getTime())) {
+      return {
+        success: false,
+        message: "Please provide a valid delivery date",
+      };
+    }
+
     const shipment = await prisma.shipment.update({
       where: { id: shipmentId },
       data: {
@@ -140,8 +158,7 @@ export async function updateShipmentAction(
         carrier,
         description,
         status,
-        deliveryDate: new Date(deliveryDate),
-
+        deliveryDate: parsedDeliveryDate,
         history: {
           create: {
             status,

@@ -24,9 +24,7 @@ export default function TrackingSearchPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      <Navbar />
-
+    <div className=" flex flex-col bg-background">
       <main className="flex-1">
         <div className="bg-linear-to-b from-primary/10 to-background border-b border-border min-h-[70vh] flex items-center justify-center">
           {" "}
@@ -71,8 +69,6 @@ export default function TrackingSearchPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

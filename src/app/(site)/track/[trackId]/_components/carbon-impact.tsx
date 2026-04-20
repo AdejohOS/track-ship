@@ -9,11 +9,26 @@ interface CarbonImpactProps {
   carrier: string;
 }
 
+const carrierEmissionFactors: Record<string, number> = {
+  FedEx: 0.18,
+  DHL: 0.17,
+  UPS: 0.19,
+  Default: 0.2,
+};
+
+const serviceMultiplier: Record<string, number> = {
+  express: 1.3,
+  premium: 1.1,
+  standard: 1,
+};
+
 export function CarbonImpact({ weight, distance, carrier }: CarbonImpactProps) {
   const weightKg = weight;
-  const carbonPerKm =
-    carrier === "express" ? 0.25 : carrier === "premium" ? 0.2 : 0.15;
-  const carbonEmissions = (weightKg * distance * carbonPerKm) / 1000; // kg CO2
+  const baseFactor =
+    carrierEmissionFactors[carrier] ?? carrierEmissionFactors.Default;
+  const multiplier = 1; // or pass serviceType later
+
+  const carbonEmissions = (weight * distance * baseFactor * multiplier) / 1000;
   const treesNeeded = Math.ceil(carbonEmissions / 21); // 1 tree absorbs ~21kg CO2/year
 
   return (
