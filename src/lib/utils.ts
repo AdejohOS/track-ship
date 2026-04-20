@@ -5,13 +5,22 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: Date | string) {
+export function formatDate(date?: Date | string | null) {
+  if (!date) return "—";
+
+  const d = new Date(date);
+
+  if (isNaN(d.getTime())) {
+    console.error("Invalid date detected:", date);
+    return "—";
+  }
+
   return new Intl.DateTimeFormat("en-GB", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
   })
-    .format(new Date(date))
+    .format(d)
     .replace(/\//g, "-");
 }
 
